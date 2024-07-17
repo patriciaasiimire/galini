@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>{{ therapist.name }}</h2>
+  <p><strong>Specialization:</strong> {{ therapist.specialization }}</p>
+  <p><strong>Contact:</strong> {{ therapist.contact_number }}</p>
+  <p><strong>Email:</strong> {{ therapist.email }}</p>
+  <p><strong>Address:</strong> {{ therapist.address }}</p>
+  <p><strong>Bio:</strong> {{ therapist.bio }}</p>
+
+  <h3>Reviews</h3>
+  {% for review in therapist.reviews.all %}
+    <p><strong>{{ review.reviewer }}:</strong> {{ review.comment }} ({{ review.rating }}/5)</p>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,77 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .d0 {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between; /* Space out the logo and nav links */
+    padding: 10px 20px; /* Optional: Add some padding */
+    background-color: #142193; /* Optional: Add background color */
+  }
+  
+  .d0 img {
+    max-height: 50px;
+    padding-left: 50px;
+     /* Adjust the logo size as needed */
+  }
+  
+  .d0 nav {
+    padding-right: 60px;
+    display: flex;
+    gap: 15px; /* Space between the nav links */
+  }
+  
+  .d0 nav a {
+    text-decoration: none; /* Remove underline */
+    color: #ffffff; /* Optional: Set link color */
+    font-size:20px; /* Optional: Set font size */
+  }
+  
+  
+  p.title{
+    font-size: 100px;
+    font-weight: bold;
+    color: #142193;
+    line-height:100px ;
+    letter-spacing: -6px;
+  }
+  
+  
+  
+  .d1{
+    margin-top: 0px;
+    display: flexbox;
+    align-items: flex-start;
+    gap: 20px;
+  
+  
+  }
+  
+  
+  
+  .d1 {
+  
+    padding: 5%;
+    padding-top: 0px;
+    display: flex;
+    align-items: flex-start; /* Align items at the top */
+    gap: 20px; /* Space between the two divs */
+  }
+  
+  .d2, .d3 {
+    flex: 1; /* Allow the divs to grow equally */
+  }
+  
+  .d3 img {
+    max-width: 110%;
+    max-height: 110%;
+    width: auto;
+    height: auto;
+  }
+  
+  .mental{
+    letter-spacing: -3px;
+    font-weight: bold;
+    font-size: 40px;
+  }

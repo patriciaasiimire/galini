@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, TherapistForm
 from .models import Therapist
@@ -14,4 +14,17 @@ def profile(request):
             user_form.save()
             therapist_form.save()
             return redirect('profile')
-    
+    else:
+        user_form = UserForm(instance=user)
+        therapist_form = TherapistForm(instance=therapist)
+
+    context = {
+        'user_form': user_form,
+        'therapist_form': therapist_form
+    }
+    return render(request, 'theme/profile.html', context)
+
+# view for displaying therapist profiles
+def therapist_detail(request, pk):
+    therapist = get_object_or_404(Therapist, pk=pk) 
+    return render(request, 'therapists/detail.html', {'therapist': therapist})
