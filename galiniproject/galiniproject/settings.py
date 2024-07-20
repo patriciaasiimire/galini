@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 'django.contrib.gis.db',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'galiniapp',
+    # 'django.contrib.gis',
+    'leaflet',
+    
 ]
 
 MIDDLEWARE = [
@@ -76,8 +82,9 @@ WSGI_APPLICATION = 'galiniproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': "django.contrib.gis.db.backends.postgis",
+        "NAME": "geodjango",
+        "USER": "geo",
     }
 }
 
@@ -122,3 +129,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+GDAL_LIBRARY_PATH = r'C:\Users\XPS\anaconda3\envs\geo_env\Library\bin\gdal.dll'
+GDAL_LIBRARY_PATH = r'C:\Users\XPS\anaconda3\envs\geo_env\Library\bin\geos_c.dll'
+conda_env_path = r'C:\Users\XPS\anaconda3\envs\geo_env'
+
+GEOS_LIBRARY_PATH = os.path.join(conda_env_path, r'Library\bin\geos_c.dll')
+GDAL_LIBRARY_PATH = os.path.join(conda_env_path, r'Library\bin\gdal.dll')
+os.environ['PATH'] += os.pathsep + os.path.join(conda_env_path, r'Library\bin')
+os.environ['PATH'] += os.pathsep + os.path.join(r'C:\Users\XPS\anaconda3\envs\geo_env\Library\bin')

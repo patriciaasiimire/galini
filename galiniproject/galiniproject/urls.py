@@ -21,4 +21,5 @@ from galiniapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', views.index),
+    path('nearesthospital/', views.nearesthos),
 ]
