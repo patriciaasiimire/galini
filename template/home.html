@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Welcome to the Mental Health Platform</h1>
+    <a href="{% url 'patient_register' %}">Register as Patient</a><br>
+    <a href="{% url 'patient_login' %}">Login as Patient</a><br>
+    <a href="{% url 'therapist_register' %}">Register as Therapist</a><br>
+    <a href="{% url 'therapist_login' %}">Login as Therapist</a>
+</body>
+</html>
