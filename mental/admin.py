@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import TherapistProfile, Review
 
-admin.sites.register()
-admin.sites.register()
-admin.sites.register()
+admin.sites.register(TherapistProfile)
+admin.sites.register(Review)
