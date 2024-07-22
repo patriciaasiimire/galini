@@ -1,7 +1,7 @@
 {% load static %}
 
 <nav class="navbar">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="{% url "home" %}">
         <img src="{% static 'images/galini.png' %}" alt="Logo" style="width: 100px; vertical-align: middle;">
     </a>
     <button class="navbar-toggler" id="navbarToggler" onclick="toggleMenu()">
@@ -10,7 +10,7 @@
         <div></div>
     </button>
     <ul class="nav-links" id="navLinks">
-        <li><a href="#">Therapist Profile</a></li>
+        <li><a href="{% url "therapist_profile" %}">Therapist Profile</a></li>
         <li><a href="#">Appointments</a></li>
         <li><a href="#">Nearest Hospital</a></li>
         <li><a href="#">Quizzes</a></li>
