@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <style>
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #142193;
+        }
+        .navbar-brand {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+        }
+        .navbar-toggler {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+        .navbar-toggler div {
+            width: 30px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s linear;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-links li {
+            margin: 0 10px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        @media (max-width: 768px) {
+            .navbar-toggler {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: left;
+                background-color: #142193;
+                position: absolute;
+                top: 50px;
+                left: 0;
+            }
+            .nav-links li {
+                margin: 10px 0;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            .navbar-toggler.open div:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            .navbar-toggler.open div:nth-child(2) {
+                opacity: 0;
+            }
+            .navbar-toggler.open div:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    {% include "navbar.html" %}

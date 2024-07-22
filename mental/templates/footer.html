@@ -1,0 +1,35 @@
+{% load static %}
+
+<footer style="background-color: #142193; color: white; padding: 20px 0; text-align: center;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div style="margin-bottom: 20px;">
+            <p>&copy; 2024 Galini Plus. All rights reserved.</p>
+            <p>
+                <a href="mailto:contact@galiniplus.com" style="color: white; text-decoration: none;">galiniplus.com</a> | 
+                <a href="#" style="color: white; text-decoration: none;">Privacy Policy</a> | 
+                <a href="#" style="color: white; text-decoration: none;">Terms of Service</a>
+            </p>
+        </div>
+        <div>
+            <a href="#" style="margin: 0 10px; display: inline-block; color: white;">
+                <img src="{% static 'images/facebook-icon.png' %}" alt="Facebook" style="width: 24px;">
+            </a>
+            <a href="#" style="margin: 0 10px; display: inline-block; color: white;">
+                <img src="{% static 'images/twitter-icon.png' %}" alt="Twitter" style="width: 24px;">
+            </a>
+            <a href="#" style="margin: 0 10px; display: inline-block; color: white;">
+                <img src="{% static 'images/instagram-icon.png' %}" alt="Instagram" style="width: 24px;">
+            </a>
+        </div>
+    </div>
+</footer>
+<script>
+    function toggleMenu() {
+        var navLinks = document.getElementById('navLinks');
+        var navbarToggler = document.getElementById('navbarToggler');
+        navLinks.classList.toggle('show');
+        navbarToggler.classList.toggle('open');
+    }
+</script>
+</body>
+</html>
