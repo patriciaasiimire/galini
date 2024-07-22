@@ -7,17 +7,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index Page</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <style>
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #142193;
+        }
+        .navbar-brand {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+        }
+        .navbar-toggler {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+        .navbar-toggler div {
+            width: 30px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s linear;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-links li {
+            margin: 0 10px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        @media (max-width: 768px) {
+            .navbar-toggler {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: left;
+                background-color: #142193;
+                position: absolute;
+                top: 50px;
+                left: 0;
+            }
+            .nav-links li {
+                margin: 10px 0;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            .navbar-toggler.open div:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            .navbar-toggler.open div:nth-child(2) {
+                opacity: 0;
+            }
+            .navbar-toggler.open div:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+        }
+    </style>
 </head>
 <body>
-     <div class="d0">
-        <img src="{% static 'images/galini.png' %}" alt="logo">
-        <nav>
-            <a href="/Therapist Profile ">Therapist Profile </a>
-            <a href="/Appointments">Appointments</a>
-            <a href="nearesthospital/ ">Nearest Hospital </a>
-            <a href="/Quizzes">Quizzes</a>
-            <a href="/Login">Login</a>
-        </nav>
+    <nav class="navbar">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'images/galini.png' %}" alt="Logo" style="width: 100px; vertical-align: middle;">
+        </a>
+        <button class="navbar-toggler" id="navbarToggler" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#">Therapist Profile</a></li>
+            <li><a href="#">Appointments</a></li>
+            <li><a href="#">Nearest Hospital</a></li>
+            <li><a href="#">Quizzes</a></li>
+            <li><a href="#">Login</a></li>
+        </ul>
+    </nav>
      </div>
      <div class="d1">
         <div class="d2">
@@ -26,15 +113,15 @@
             </p>
 
             <p class="mental">
-                Mental health resources to help you take better care of yourself.
+                Take the first step towards better mental health with Galini Plus.
             </p>
 
             <p>
-                Checking in with yourself is important for your mental health.
+                Your mental health is our priority. At Galini Plus, we connect you with licensed therapists who can help you navigate life's challenges. Whether you're dealing with anxiety, mood changes, or conflicting emotions, our platform is here to support you.
 
-                So learn to pay attention to your state of mind — detecting 
-                everyday anxiety, changing moods, or conflicting feelings -- 
-                and turn to Headspace’s tools and evidence-based practices.
+Check in with yourself using our comprehensive quizzes to better understand your mental health needs. Then, connect with a therapist who can provide personalized care and evidence-based practices tailored just for you.
+
+
             </p>
         
             
@@ -46,6 +133,14 @@
         
      </div>
      
-    
+
+     <script>
+        function toggleMenu() {
+            var navLinks = document.getElementById('navLinks');
+            var navbarToggler = document.getElementById('navbarToggler');
+            navLinks.classList.toggle('show');
+            navbarToggler.classList.toggle('open');
+        }
+    </script>
 </body>
 </html>

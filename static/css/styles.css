@@ -1,45 +1,55 @@
-body{
+/* landing page */
+
+body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .d0 {
   display: flex;
-  align-items: center; /* Align items vertically in the center */
-  justify-content: space-between; /* Space out the logo and nav links */
-  padding: 10px 20px; /* Optional: Add some padding */
-  background-color: #142193; /* Optional: Add background color */
+  align-items: center;
+  /* Align items vertically in the center */
+  justify-content: space-between;
+  /* Space out the logo and nav links */
+  padding: 10px 20px;
+  /* Optional: Add some padding */
+  background-color: #142193;
+  /* Optional: Add background color */
 }
 
 .d0 img {
   max-height: 50px;
   padding-left: 50px;
-   /* Adjust the logo size as needed */
+  /* Adjust the logo size as needed */
 }
 
 .d0 nav {
   padding-right: 60px;
   display: flex;
-  gap: 15px; /* Space between the nav links */
+  gap: 15px;
+  /* Space between the nav links */
 }
 
 .d0 nav a {
-  text-decoration: none; /* Remove underline */
-  color: #ffffff; /* Optional: Set link color */
-  font-size:20px; /* Optional: Set font size */
+  text-decoration: none;
+  /* Remove underline */
+  color: #ffffff;
+  /* Optional: Set link color */
+  font-size: 20px;
+  /* Optional: Set font size */
 }
 
 
-p.title{
+p.title {
   font-size: 100px;
   font-weight: bold;
   color: #142193;
-  line-height:100px ;
+  line-height: 100px;
   letter-spacing: -6px;
 }
 
 
 
-.d1{
+.d1 {
   margin-top: 0px;
   display: flexbox;
   align-items: flex-start;
@@ -51,16 +61,20 @@ p.title{
 
 
 .d1 {
-  
+
   padding: 5%;
   padding-top: 0px;
   display: flex;
-  align-items: flex-start; /* Align items at the top */
-  gap: 20px; /* Space between the two divs */
+  align-items: flex-start;
+  /* Align items at the top */
+  gap: 20px;
+  /* Space between the two divs */
 }
 
-.d2, .d3 {
-  flex: 1; /* Allow the divs to grow equally */
+.d2,
+.d3 {
+  flex: 1;
+  /* Allow the divs to grow equally */
 }
 
 .d3 img {
@@ -70,8 +84,117 @@ p.title{
   height: auto;
 }
 
-.mental{
+.mental {
   letter-spacing: -3px;
   font-weight: bold;
   font-size: 40px;
+}
+
+/* therapist_profile */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.profile-img {
+  border-radius: 50%;
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.profile-info {
+  text-align: center;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #142193;
+}
+
+.profile-info p {
+  margin: 10px 0;
+  color: #666;
+}
+
+.bio {
+  margin-top: 20px;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .d1 {
+    flex-direction: column;
+    padding: 5%;
+  }
+
+  .d3 img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .d0 {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .d0 img {
+    padding-left: 0;
+  }
+
+  .d0 nav {
+    padding-right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .d0 nav a {
+    margin: 10px 0;
+  }
+}
+
+/* Additional CSS for the menu and button */
+.d0 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #142193;
+  position: relative;
+}
+
+.d0 img {
+  max-height: 50px;
+}
+
+.d0 nav {
+  display: flex;
+  gap: 15px;
+  transition: max-height 0.3s ease-out;
+  overflow: hidden;
+}
+
+.d0 nav.collapsed {
+  max-height: 0;
+}
+
+.d0 nav.expanded {
+  max-height: 500px; /* Or a large enough value */
+}
+
+.toggle-button {
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px 10px;
 }
