@@ -1,0 +1,175 @@
+<!-- disorders/templates/disorders/disorder_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Disorders List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .disorder {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .disorder h2 {
+            margin-top: 0;
+        }
+
+        .disorder p {
+            margin-bottom: 10px;
+        }
+
+        .radio-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .radio-container {
+            margin-bottom: 15px;
+        }
+
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #142193;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #142193;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Mental Disorders</h1>
+        <form id="disorderForm" action="{% url 'disorder_detail' %}" method="GET">
+            {% csrf_token %}
+            {% for disorder in disorders %}
+            <div class="disorder">
+                <div class="radio-container">
+                    <input type="radio" id="disorder{{ disorder.pk }}" name="disorder_id" class="radio-btn"
+                        value="{{ disorder.pk }}">
+                    <label for="disorder{{ disorder.pk }}" class="radio-label">{{ Anxiety Disorders }}</label>
+                </div>
+                <p><strong>Causes:</strong> {{ Anxiety disorders can be caused by a combination of factors including
+                    genetics, brain chemistry, personality, and life events. Stressful or traumatic experiences may also
+                    contribute. }}</p>
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">View Details</button>
+
+            <div class="disorder">
+                <div class="radio-container">
+                    <input type="radio" id="disorder{{ disorder.pk }}" name="disorder_id" class="radio-btn"
+                        value="{{ disorder.pk }}">
+                    <label for="disorder{{ disorder.pk }}" class="radio-label">{{ Mood Disorders (e.g., Depression,
+                        Bipolar Disorder): }}</label>
+                </div>
+                <p><strong>Causes:</strong> {{ Mood disorders are often influenced by genetic predisposition, biological
+                    differences in brain chemistry and structure, and life events such as trauma or prolonged stress.
+                    Imbalances in neurotransmitters (like serotonin and dopamine) play a significant role. }}</p>
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">View Details</button>
+
+            <div class="disorder">
+                <div class="radio-container">
+                    <input type="radio" id="disorder{{ disorder.pk }}" name="disorder_id" class="radio-btn"
+                        value="{{ disorder.pk }}">
+                    <label for="disorder{{ disorder.pk }}" class="radio-label">{{ Psychotic Disorders }}</label>
+                </div>
+                <p><strong>Causes:</strong> {{ Schizophrenia and other psychotic disorders are thought to result from a
+                    complex interaction of genetic, brain chemistry, and environmental factors. Stressful life events
+                    and drug use can also trigger symptoms. }}</p>
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">View Details</button>
+
+            <div class="disorder">
+                <div class="radio-container">
+                    <input type="radio" id="disorder{{ disorder.pk }}" name="disorder_id" class="radio-btn"
+                        value="{{ disorder.pk }}">
+                    <label for="disorder{{ disorder.pk }}" class="radio-label">{{ Eating Disorders }}</label>
+                </div>
+                <p><strong>Causes:</strong> {{ Eating disorders often develop due to a combination of genetic,
+                    psychological, and social factors. Perfectionism, low self-esteem, societal pressures, and traumatic
+                    events can contribute. }}</p>
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">View Details</button>
+
+            <div class="disorder">
+                <div class="radio-container">
+                    <input type="radio" id="disorder{{ disorder.pk }}" name="disorder_id" class="radio-btn"
+                        value="{{ disorder.pk }}">
+                    <label for="disorder{{ disorder.pk }}" class="radio-label">{{ Obsessive-Compulsive Disorders
+                        }}</label>
+                </div>
+                <p><strong>Causes:</strong> {{ Genetics, brain structure, and functioning, as well as environmental
+                    factors (such as childhood experiences and learned behaviors), contribute to the development of
+                    obsessive-compulsive and related disorders. }}</p>
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">View Details</button>
+
+            <div class="disorder">
+                <div class="radio-container">
+                    <input type="radio" id="disorder{{ disorder.pk }}" name="disorder_id" class="radio-btn"
+                        value="{{ disorder.pk }}">
+                    <label for="disorder{{ disorder.pk }}" class="radio-label">{{ Personality Disorders}}</label>
+                </div>
+                <p><strong>Causes:</strong> {{ Personality disorders are thought to arise from a combination of genetic
+                    predisposition and environmental influences, particularly during childhood. Factors such as trauma,
+                    abuse, and dysfunctional family dynamics can play significant roles. }}</p>
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">View Details</button>
+
+            <div class="disorder">
+                <div class="radio-container">
+                    <input type="radio" id="disorder{{ disorder.pk }}" name="disorder_id" class="radio-btn"
+                        value="{{ disorder.pk }}">
+                    <label for="disorder{{ disorder.pk }}" class="radio-label">{{ Trauma- and Stressor-Related
+                        Disorders}}</label>
+                </div>
+                <p><strong>Causes:</strong> {{ These disorders are typically triggered by exposure to traumatic or
+                    stressful events. Factors such as the intensity of the trauma, individual coping mechanisms, and
+                    social support networks all contribute to the development and severity of these disorders. }}</p>
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">View Details</button>
+        </form>
+    </div>
+</body>
+
+</html>
