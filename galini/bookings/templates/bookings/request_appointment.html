@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Form</title>
+    <style>
+        /* Basic styling for the form */
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            width: 50%;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        /* Styling for the form container with background image */
+        .form-container {
+            background-image: url("pictures/R.jpeg");
+            /* Adjust path as needed */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 50%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Appointment Form</h1>
+    <form action="/submit_appointment" method="post">
+        <h2>Patient Information</h2>
+        <label for="full_name">Full Name:</label>
+        <input type="text" id="full_name" name="full_name" required>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email">
+
+        <label for="gender">Gender (optional):</label>
+        <select id="gender" name="gender">
+            <option value="">-- Select --</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Non-binary">Non-binary</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+
+        <label for="preferred_language">Preferred Language (optional):</label>
+        <input type="text" id="preferred_language" name="preferred_language">
+
+        <h2>Appointment Details</h2>
+        <label for="reason_for_visit">Reason for Visit:</label>
+        <textarea id="reason_for_visit" name="reason_for_visit" required></textarea>
+
+        <label for="date_time">Preferred Date and Time:</label>
+        <input type="text" id="date_time" name="date_time" placeholder="Select date and time" required>
+
+        <label for="appointment_type">Appointment Type (optional):</label>
+        <select id="appointment_type" name="appointment_type">
+            <option value="">-- Select --</option>
+            <option value="New Patient Consult">New Patient Consult</option>
+            <option value="Follow-Up">Follow-Up</option>
+            <option value="Physical Exam">Physical Exam</option>
+        </select>
+
+        <h2>Medical History (optional)</h2>
+        <label for="allergies">Allergies:</label>
+        <textarea id="allergies" name="allergies"></textarea>
+
+        <label for="medications">Medications (optional):</label>
+        <textarea id="medications" name="medications"></textarea>
+
+        <button type

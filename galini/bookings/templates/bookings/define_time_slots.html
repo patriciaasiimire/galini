@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Define Time Slots</title>
+    <style>
+        /* Basic styling for the form container */
+        .form-container {
+            background-color: #f5f5f5;
+            /* Light gray background */
+            padding: 20px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 50%;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Styling for individual timeslots */
+        .timeslot {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            /* Add border for separation */
+        }
+
+        .timeslot input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .timeslot span {
+            font-size: 16px;
+        }
+
+        /* Style the submit button with a different color and round corners */
+        .button {
+            background-color: #007bff;
+            /* Blue color */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            /* Add border-radius for rounded corners */
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Define Time Slots</h2>
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="timeslot">
+                <input type="checkbox" id="id_slot_1" name="timeslot[]" value="09:00">
+                <span for="id_slot_1">09:00 AM</span>
+            </div>
+            <div class="timeslot">
+                <input type="checkbox" id="id_slot_2" name="timeslot[]" value="10:00">
+                <span for="id_slot_2">10:00 AM</span>
+            </div>
+            <div class="timeslot">
+                <input type="checkbox" id="id_slot_3" name="timeslot[]" value="11:00">
+                <span for="id_slot_3">11:00 AM</span>
+            </div>
+            <button type="submit" class="button">Save</button>
+        </form>
+    </div>
+</body>
+
+</html>
