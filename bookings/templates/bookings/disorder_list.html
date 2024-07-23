@@ -1,0 +1,151 @@
+<!-- disorders/templates/disorders/disorder_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Disorders List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .disorder {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .disorder h2 {
+            margin-top: 0;
+        }
+
+        .disorder p {
+            margin-bottom: 10px;
+        }
+
+        .radio-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .radio-container {
+            margin-bottom: 15px;
+        }
+
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #142193;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0a1145;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Mental Disorders</h1>
+        <form id="disorderForm" action="{% url 'disorder_list' %}" method="GET">
+            {% csrf_token %}
+
+
+            <div class="disorder">
+                <div class="radio-container">
+
+                    <label for="disorder" class="radio-label">Anxiety Disorder</label>
+                </div>
+                <a href="https://my.clevelandclinic.org/health/diseases/9536-anxiety-disorders">Details</a>
+            </div>
+            <div class="disorder">
+                <div class="radio-container">
+
+                    <label for="mood{{ disorder.pk }}" class="radio-label">Mood Disorders (e.g., Depression, Bipolar
+                        Disorder)</label>
+                </div>
+                <a
+                    href="https://www.mayoclinic.org/diseases-conditions/bipolar-disorder/symptoms-causes/syc-20355955#:~:text=Bipolar%20disorder%2C%20formerly%20called%20manic,or%20pleasure%20in%20most%20activities.">Details</a>
+            </div>
+
+            <div class="disorder">
+                <div class="radio-container">
+
+                    <label for="psychotic{{ disorder.pk }}" class="radio-label">Psychotic Disorders (e.g.,
+                        Schizophrenia)</label>
+                </div>
+                <a
+                    href="https://www.ncbi.nlm.nih.gov/books/NBK546579/#:~:text=A%20psychotic%20episode%20or%20disorder,around%2050%20in%2010000%20people.">Details</a>
+            </div>
+
+            <div class="disorder">
+                <div class="radio-container">
+
+                    <label for="eating{{ disorder.pk }}" class="radio-label">Eating Disorders (e.g., Anorexia Nervosa,
+                        Bulimia Nervosa)</label>
+                </div>
+                <a
+                    href="https://www.mayoclinic.org/diseases-conditions/eating-disorders/symptoms-causes/syc-20353603">Details</a>
+            </div>
+
+            <div class="disorder">
+                <div class="radio-container">
+
+                    <label for="obsessive{{ disorder.pk }}" class="radio-label">Obsessive-Compulsive and Related
+                        Disorders</label>
+                </div>
+                <a
+                    href="https://www.mayoclinic.org/diseases-conditions/obsessive-compulsive-disorder/symptoms-causes/syc-20354432#:~:text=Overview,cause%20a%20lot%20of%20distress.">Details</a>
+            </div>
+
+            <div class="disorder">
+                <div class="radio-container">
+
+                    <label for="personality{{ disorder.pk }}" class="radio-label">Personality Disorders</label>
+                </div>
+                <a
+                    href="https://www.mayoclinic.org/diseases-conditions/personality-disorders/symptoms-causes/syc-20354463#:~:text=A%20personality%20disorder%20is%20a,understanding%20emotions%20and%20tolerating%20distress.">Details</a>
+            </div>
+
+            <div class="disorder">
+                <div class="radio-container">
+
+                    <label for="trauma{{ disorder.pk }}" class="radio-label">Trauma- and Stressor-Related Disorders
+                        (e.g., PTSD)</label>
+                </div>
+                <a
+                    href="https://www.msdmanuals.com/home/mental-health-disorders/anxiety-and-stressor-related-disorders/overview-of-trauma-and-stressor-related-disorders">Details</a>
+            </div>
+
+
+
+        </form>
+    </div>
+</body>
+
+</html>

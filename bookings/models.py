@@ -32,3 +32,11 @@ class Feedback(models.Model):
 
   def __str__(self):
     return f"{self.name} - {self.email}"  # Customize string representation for clarity
+  
+
+class Disorder(models.Model):
+    name = models.CharField(max_length=200)
+    details_url = models.URLField()
+
+    def __str__(self):
+        return self.name

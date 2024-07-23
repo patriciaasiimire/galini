@@ -21,6 +21,5 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("bookings.urls")),
-    path("", include("mentalDisorders.urls")),  # Include bookings app URLs here
-    # Add other URLs as needed
+   
 ]

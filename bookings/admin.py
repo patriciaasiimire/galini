@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Appointment, Feedback, TimeSlot
+from .models import Appointment, Disorder, Feedback, TimeSlot
 
 # Register your models here.
 
@@ -40,3 +40,9 @@ class FeedbackAdmin(admin.ModelAdmin):
   readonly_fields = ('created_at',)  # Make 'created_at' read-only
 
 admin.site.register(Feedback, FeedbackAdmin)
+
+@admin.register(Disorder)
+class DisorderAdmin(admin.ModelAdmin):
+    list_display = ('name', 'details_url')
+    list_display_links = ('name', 'details_url')
+    search_fields = ('name',)
