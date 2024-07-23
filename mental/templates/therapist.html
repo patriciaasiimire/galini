@@ -1,7 +1,21 @@
 {% load static %}
 {% include 'base.html' %}
 
-i am the therapist of the year
-
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ therapist.profile_picture }}" class="img-fluid rounded-start" alt="..." />
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ therapist.name }}</h5>
+        <p class="card-text">{{ therapist.bio }}</p>
+        <p class="card-text">
+          <small class="text-body-secondary">{{ therapist.updated_at }}mins ago</small>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% include 'footer.html' %}

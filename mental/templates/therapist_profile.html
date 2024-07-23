@@ -1,8 +1,35 @@
 {% load static %}
 {% include 'base.html' %}
 
-<a href="{% url "therapist" %}">View Therapist</a>
+<a href="{% url 'therapist' therapist.id %}">View Therapist</a>
 
+{% for therapist in therapists %}
+  {% comment %} <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    <div class="col mb-5">
+      <div class="card h-100">
+        <img src="{{ therapist.profile_picture }}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ therapist.name }}</h5>
+          <p class="card-text">{{ therapist.bio }}</p>
+          <p class="card-text">
+            <small class="text-muted">{{ therapist.updated_at }}mins ago</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div> {% endcomment %}
+  <div class="container">
+    <h1>Our Therapists</h1>
+    <div class="therapist-card">
+        <img src="{{ therapist.profile_picture }}" alt="Therapist 1">
+        <div class="therapist-details">
+            <h2>{{ therapist.name }}</h2>
+            <p>Specialization: {{ therapist.specialization }}</p>
+            <p>Experience: {{ therapist.experience }} years</p>
+            <p>{{ therapist.bio }}</p>
+        </div>
+    </div>
+{% endfor %}
 <br />
 <br />
 <br />
