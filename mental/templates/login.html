@@ -1,0 +1,35 @@
+{% load static %}
+{% include 'base.html' %}
+
+<div class="d1">
+  <div class="d2">
+    <p class="title">Login to your account</p>
+    <br /><br />
+
+    <div class="container">
+      <div class="row">
+        <center>
+          <div class="col-8">
+            <form action="{% url "login" %}" method="post">
+                {% csrf_token %} <!--cross site request forgery token: protection from hackers who want to hijack the form-->
+              <div class="mb-3">
+                <input type="text" class="form-control" name="username" placeholder="Enter your username" />
+              </div>
+              <div class="mb-3 form-check">
+                <input type="password" class="form-control" name="password" placeholder="Enter your password">
+              </div>
+
+              <button type="submit" style="background-color: #142193; color: #FFFFFF;">Login</button>
+            </form>
+          </div>
+        </center>
+      </div>
+    </div>
+  </div>
+
+  <div class="d3">
+    <img src="{% static 'images/v30_6.png' %}" alt="imagemental" />
+  </div>
+</div>
+
+{% include 'footer.html' %}

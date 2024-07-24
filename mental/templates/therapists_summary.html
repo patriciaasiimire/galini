@@ -1,0 +1,50 @@
+{% load static %}
+{% include 'base.html' %}
+
+<div class="d1">
+  <div class="d2">
+    <p class="title">Meet Your Mental Health Heroes - Galini Plus.</p>
+  </div>
+</div>
+<div class="container">
+{% for therapist in therapists %}
+    <div class="card">
+      <div class="card__body">
+        <div class="card__img-body">
+          <img src="{{ therapist.image.url }}" alt="Doc 01" class="card__img" />
+        </div>
+        <div class="card__info">
+          <h1 class="card__title">{{ therapist.name }}</h1>
+          <strong>{{ therapist.specialty }}</strong>
+          <p class="card__desc">{{ therapist.bio }}</p>
+          <a href="#">Readmore...</a>
+        </div>
+      </div>
+    </div>
+ 
+  <br>
+{% endfor %}
+</div>
+
+{% comment %} <div class="card-image">
+  <img src="" alt="Doc-01" />
+</div>
+<div class="card-info">
+  <h2>Dr. Mary Ann Smith</h2>
+  <p>Cardiologist</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel est at ligula luctus iaculis. Donec semper, velit vel tristique convallis, mauris mauris gravida lectus, et scelerisque massa lectus vel velit.</p>
+  <a href="#">Read More</a>
+</div> {% endcomment %}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+{% include 'footer.html' %}

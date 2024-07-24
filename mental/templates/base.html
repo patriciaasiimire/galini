@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galini Plus</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" href="{% static 'images/v30_6 copy.png' %}">
 
     <style>
         
@@ -90,3 +91,13 @@
 <body>
     
     {% include "navbar.html" %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning aler-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}
+    {% endblock content %}
