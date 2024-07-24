@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Patient Profile</title>
+    <title>Therapist Profile</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Patient Profile</h1>
+    <h1>Therapist Profile</h1>
     <form method="post">
         {% csrf_token %}
-        {{ user_form.as_p }}
+        {{ form.as_p }}
         <button type="submit">Update Profile</button>
     </form>
-    <a href="{% url 'patient_logout' %}">Logout</a>
+    <a href="{% url 'therapist_logout' %}">Logout</a>
 </body>
 </html>

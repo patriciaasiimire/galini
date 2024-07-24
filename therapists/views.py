@@ -1,23 +1,23 @@
 from django.shortcuts import render, redirect
-
-# Create your views here.
-# therapists/views.py
-
-#from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.contrib.auth.forms import UserChangeForm
-from .models import Therapist
+from .forms import CustomUserCreationForm  # Import the form
 
 def therapist_register(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        therapist = Therapist.objects.create_user(username=username, password=password)
-        login(request, therapist)
-        return redirect('therapist_profile')
-    return render(request, 'therapists/register.html')
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_therapist = True
+            user.save()
+            login(request, user)
+            return redirect('therapist_profile')
+        else:
+            messages.error(request, 'Please correct the error(s) below.')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'therapists/register.html', {'form': form})
 
 def therapist_login(request):
     if request.method == 'POST':
@@ -36,12 +36,14 @@ def therapist_logout(request):
     logout(request)
     return redirect('therapist_login')
 
-@login_required(login_url='therapist_login')
+@login_required
 def therapist_profile(request):
-    user_form = UserChangeForm(instance=request.user)
     if request.method == 'POST':
-        user_form = UserChangeForm(request.POST, instance=request.user)
-        if user_form.is_valid():
-            user_form.save()
+        form = CustomUserCreationForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
             messages.success(request, 'Profile updated successfully.')
-    return render(request, 'therapists/profile.html', {'user_form': user_form})
+            return redirect('therapist_profile')
+    else:
+        form = CustomUserCreationForm(instance=request.user)
+    return render(request, 'therapists/profile.html', {'form': form})

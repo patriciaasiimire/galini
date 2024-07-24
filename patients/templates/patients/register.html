@@ -2,18 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Patient Registration</title>
+    <title>Register as Therapist</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Patient Registration</h1>
-    <form method="post" action="{% url 'patient_register' %}">
+    <h1>Register as Therapist</h1>
+    <form method="post">
         {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required><br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required><br>
+        {{ form.as_p }}
         <button type="submit">Register</button>
     </form>
 </body>

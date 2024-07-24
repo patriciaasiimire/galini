@@ -2,20 +2,26 @@
 
 import django.contrib.auth.models
 import django.contrib.auth.validators
-import django.db.models.deletion
 import django.utils.timezone
 from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
 
-    initial = True
-
     dependencies = [
         ('auth', '0012_alter_user_first_name_max_length'),
+        ('patients', '0006_alter_patientprofile_user_remove_patient_groups_and_more'),
     ]
 
     operations = [
+        migrations.RemoveField(
+            model_name='patientprofile',
+            name='current_medication',
+        ),
+        migrations.RemoveField(
+            model_name='patientprofile',
+            name='medical_history',
+        ),
         migrations.CreateModel(
             name='CustomUser',
             fields=[
@@ -30,8 +36,8 @@ class Migration(migrations.Migration):
                 ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
                 ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='therapist_customuser_set', related_query_name='therapist_customuser', to='auth.group')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='therapist_customuser_set', related_query_name='therapist_customuser', to='auth.permission')),
+                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='patient_customuser_set', related_query_name='patient_customuser', to='auth.group')),
+                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='patient_customuser_set', related_query_name='patient_customuser', to='auth.permission')),
             ],
             options={
                 'verbose_name': 'user',
@@ -40,13 +46,6 @@ class Migration(migrations.Migration):
             },
             managers=[
                 ('objects', django.contrib.auth.models.UserManager()),
-            ],
-        ),
-        migrations.CreateModel(
-            name='TherapistProfile',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='therapists.customuser')),
             ],
         ),
     ]

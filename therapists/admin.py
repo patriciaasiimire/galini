@@ -1,5 +1,5 @@
 from django.contrib import admin
+from .models import CustomUser, TherapistProfile
 
-from.models import Therapist
-# Register your models here.
-admin.site.register(Therapist)
+admin.site.register(CustomUser)
+admin.site.register(TherapistProfile)
