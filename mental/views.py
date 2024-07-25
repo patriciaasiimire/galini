@@ -2,13 +2,18 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Therapist, Appointment
-from .forms import TherapistForm, AppointmentRequestForm, FeedbackForm, TimeSlotForm
+
 from datetime import datetime
 from email.message import EmailMessage
 import logging
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+from django import forms
+from .forms import TherapistForm, SignUpForm, AppointmentRequestForm, FeedbackForm, TimeSlotForm
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
@@ -21,12 +26,13 @@ def home(request):
 def therapists_summary(request):
     therapists = Therapist.objects.all()
     return render(request, 'therapists_summary.html', {'therapists': therapists})
-
+# authentication
 def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             login(request, user)  # Ensure `request` is the first argument
             return redirect('home')  # Redirect to a home page or any other page
@@ -38,8 +44,28 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.success(request, ('You have been logged out, Thanks for stopping by...'))
-    return redirect('home.html')
+    return redirect('home')
 
+def register_user(request):
+    form = SignUpForm()
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            email = form.cleaned_data.get('email')
+            # login user
+            user = authenticate(username=username, password=password, email=email)
+            login(request, user)
+            # messages.success(request, f"Account created for {username}! You are now able to log in.")
+            return redirect('home')
+        else:
+            # messages.success(request, ('Whoops! There was a problem registering the account, please try again'))
+            return redirect('register')
+    else:
+        return render(request, "register.html", {})
+    
 # appointments
 logger = logging.getLogger(__name__)
 

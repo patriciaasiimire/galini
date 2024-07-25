@@ -1,0 +1,40 @@
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galini Plus</title>
+  <link rel="stylesheet" href="{% static 'css/register.css' %}">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="wrapper">
+    <form action="{% url "register" %}" method="post">
+      {% csrf_token %} <!--cross site request forgery token: protection from hackers who want to hijack the form-->
+      <h1>Register</h1>
+      <div class="input-box">
+        <i class='bx bxs-user'></i>
+        {{ form.username}}
+      </div>
+      <div class="input-box">
+        <i class='bx bxs-envelope'></i> 
+        {{ form.email}}
+      </div>
+      <div class="input-box">
+        <i class='bx bxs-lock-alt' ></i>
+        {{ form.password1}}
+      </div>
+      <div class="input-box">
+        <i class='bx bxs-lock-alt' ></i>
+        {{ form.password2}}
+      </div>
+      <br>
+      <button type="submit" class="btn">Register</button>
+
+      <div class="register-link">
+        <p>Already have an account? <a href="{% url "login" %}">Login</a></p>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
