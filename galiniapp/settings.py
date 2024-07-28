@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mental',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -45,7 +46,6 @@ ROOT_URLCONF = 'galiniapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -61,6 +61,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'galiniapp.wsgi.application'
+ASGI_APPLICATION = 'galiniapp.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
 
 # Database

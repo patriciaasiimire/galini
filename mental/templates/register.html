@@ -1,5 +1,7 @@
 {% load static %}
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,26 +11,40 @@
 </head>
 <body>
   <div class="wrapper">
-    <form action="{% url "register" %}" method="post">
+    <form action="." method="post">
       {% csrf_token %} <!--cross site request forgery token: protection from hackers who want to hijack the form-->
       <h1>Register</h1>
+
       <div class="input-box">
-        <i class='bx bxs-user'></i>
         {{ form.username}}
+        {% comment %} <i class='bx bxs-user'></i> {% endcomment %}
       </div>
+
       <div class="input-box">
-        <i class='bx bxs-envelope'></i> 
         {{ form.email}}
+        {% comment %} <input type="text" placeholder="Username" name="username" required> {% endcomment %}
+        {% comment %} <i class='bx bxs-envelope'></i> {% endcomment %}
       </div>
+
       <div class="input-box">
-        <i class='bx bxs-lock-alt' ></i>
         {{ form.password1}}
+        {% comment %} <input type="password" placeholder="Enter Your Password" name="password1" required> {% endcomment %}
+       
+        {% comment %} <i class='bx bxs-lock-alt' ></i> {% endcomment %}
       </div>
+
       <div class="input-box">
-        <i class='bx bxs-lock-alt' ></i>
         {{ form.password2}}
+        {% comment %} <input type="password" placeholder="Enter Your Password" name="password1" required> {% endcomment %}
+       
+        {% comment %} <i class='bx bxs-lock-alt' ></i> {% endcomment %}
       </div>
-      <br>
+      <br><br>
+
+      {% comment %} <div class="remember-forgot">
+        <label><input type="checkbox">Remember Me</label>
+      </div> {% endcomment %}
+
       <button type="submit" class="btn">Register</button>
 
       <div class="register-link">

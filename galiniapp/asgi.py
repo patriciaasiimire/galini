@@ -1,16 +1,19 @@
-"""
-ASGI config for galiniapp project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.0/howto/deployment/asgi/
-"""
-
 import os
 
+from channels.auth import AuthMiddlewareStack
+from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
+
+# Channels configuration for Mental app
+import mental.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'galiniapp.settings')
 
-application = get_asgi_application()
+application = ProtocolTypeRouter({
+    'http': get_asgi_application(),
+    'websocket': AuthMiddlewareStack(
+        URLRouter(
+            mental.routing.websocket_urlpatterns
+        )
+    ),
+})

@@ -9,11 +9,10 @@ urlpatterns = [
     
     path('therapists_summary/', views.therapists_summary, name='therapists_summary'),
 
-    path('embed/', views.embed_view, name='embed'),
-    
-    path('request_appointment/', views.request_appointment, name='request_appointment'),
-    path('define_time_slots/', views.define_time_slots, name='define_time_slots'),
-    path('submit_feedback/', views.submit_feedback, name='submit_feedback'),
+    path('message_page/', views.message_page, name='message_page'),
+    path('rooms/', views.rooms, name='rooms'),
+    path('<slug:slug>/', views.room, name='room'),
 
-    path('request_appointment/', views.request_appointment, name='request_appointment'),
+    path('phq9/calculator/', views.phq9_calculator_view, name='phq9_calculator'),
+    
 ]

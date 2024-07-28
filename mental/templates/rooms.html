@@ -1,0 +1,125 @@
+{% load static %}
+{% include 'base.html' %}
+<style>
+    body {
+        background-color: #90D5FF;
+        font-family: Arial, sans-serif;
+        margin: 0;
+    }
+
+    .container {
+        max-width: 1200px; /* Adjust the maximum width as needed */
+        margin: 0 auto;
+        padding: 0 2rem; /* Adding padding to the container */
+    }
+    
+    .w-full {
+        width: 100%;
+    }
+    
+    .flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    .px-3 {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+    
+    .py-3 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    
+    .p-4 {
+        padding: 1rem;
+    }
+    
+    .bg-white {
+        background-color: white;
+    }
+    
+    .shadow {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .rounded-xl {
+        border-radius: 1rem;
+    }
+    
+    .text-center {
+        text-align: center;
+    }
+    
+    .mb-5 {
+        margin-bottom: 1.25rem;
+    }
+    
+    .text-2xl {
+        font-size: 1.5rem;
+    }
+    
+    .font-semibold {
+        font-weight: 600;
+    }
+    
+    .text-white {
+        color: white;
+    }
+    
+    .bg-teal-600 {
+        background-color: #142193;
+    }
+    
+    .hover\:bg-white-teal-700:hover {
+        background-color: #90D5FF;
+    }
+    
+    .block {
+        display: block;
+    }
+    
+    .p-10 {
+        padding: 2.5rem; /* 40px */
+    }
+    
+    .lg\:p-20 {
+        padding: 5rem; /* 80px */
+    }
+    
+    .text-center {
+        text-align: center;
+    }
+    
+    .chatrooms {
+        color: #142193;
+        font-size: 3rem; /* Adjust the font size as needed */
+        font-weight: bold;
+    }
+    
+</style>
+
+<div class="p-10 lg:p-20 text-center chatrooms">ChatRooms</div>
+
+<div class="w-full flex flex-wrap-items-center">
+    {% for room in rooms %}
+    <div class="w-full lg:w-1/4  px-3 py-3">
+        <div class="p-4 bg-white shadow rounded-xl text-center">
+            <h2 class="mb-5 text-2xl font-semibold">{{ room.name }}</h2>
+
+            <a href="{% url 'room' room.slug %}" class="px-5 py-3 block rounded-xl text-white bg-teal-600 hover:bg-white-teal-700">Join</a>
+        </div>
+    </div>
+    {% endfor %}
+    
+</div>
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+{% include 'footer.html' %}

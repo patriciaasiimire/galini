@@ -1,0 +1,188 @@
+{% load static %}
+{% include 'base.html' %}
+<style>
+  body {
+    background-color: #90d5ff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+  }
+  
+  .container {
+    max-width: 1200px; /* Adjust the maximum width as needed */
+    margin: 0 auto;
+    padding: 0 2rem; /* Adding padding to the container */
+}
+  .w-full {
+    width: 100%;
+  }
+  
+  .flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .px-3 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  .py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+  
+  .p-4 {
+    padding: 1rem;
+  }
+  
+  .bg-white {
+    background-color: white;
+  }
+  
+  .shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rounded-xl {
+    border-radius: 1rem;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .mb-5 {
+    margin-bottom: 1.25rem;
+  }
+  
+  .text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  .font-semibold {
+    font-weight: 600;
+  }
+  
+  .text-white {
+    color: white;
+  }
+  
+  .bg-teal-600 {
+    background-color: #142193;
+  }
+  
+  .hover\:bg-white-teal-700:hover {
+    background-color: #90d5ff;
+  }
+  
+  .block {
+    display: block;
+  }
+  
+  .p-10 {
+    padding: 2.5rem; /* 40px */
+  }
+  
+  .lg\:p-20 {
+    padding: 5rem; /* 80px */
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .chatrooms {
+    color: #142193;
+    font-size: 3rem; /* Adjust the font size as needed */
+    font-weight: bold;
+  }
+
+  .mr-3 {
+    margin-right: 0.75rem;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+</style>
+
+<div class="p-10 lg:p-20 text-center chatrooms">{{ room.name }}</div>
+
+<div class="w-full flex flex-wrap-items-center">
+  <div class="lg:w-2/4 mx-4 lg:mx-auto p-4 bg-white rounded-xl">
+    <div class="chat-messages space-y-3" id="chat-messages">
+      {% for message in messages %}
+      <div class="p-4 bg-gray-200 rounded-xl">
+        <p class="font-semibold">{{message.user.username}}</p>
+        <p>{{message.content}}</p></div>
+      {% endfor %}
+     
+    </div>
+  </div>
+</div>
+
+<div class="lg:w-2/4 mx-4 lg:mx-auto p-4 bg-white rounded-xl">
+  <form action="." method="post" class="flex">
+    {% csrf_token %}
+    <input id="chat-message-input" class="flex-1 mr-3" type="text" name="content" placeholder="Type your message..." required />
+
+    <button class="px-5 py-3 rounded-xl bg-teal-600 hover:bg-teal-teal-700 text-white" id="chat-message-submit">Send</button>
+  </form>
+</div>
+
+<br /><br /><br /><br />
+<br /><br /><br /><br />
+<br /><br /><br /><br />
+<br /><br /><br /><br />
+
+{% include 'footer.html' %}
+
+{{ room.slug|json_script:"json-roomname"}}
+{{ request.user.username|json_script:"json-username" }}
+<script>
+    const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
+    const userName = JSON.parse(document.getElementById('json-username').textContent);
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/'
+        + roomName
+        + '/'
+    );
+        
+    chatSocket.onmessage = function(e) {
+        console.log('onmessage');
+        const data = JSON.parse(e.data);
+        if (data.message) {
+          let html = '<div class="p-4 bg-gray-200 rounded-xl">';
+              html += '<p class="font-semibold">' + data.username + '</p>';
+              html += '<p>' + data.message + '</p></div>';
+          document.querySelector('#chat-messages').innerHTML += html;
+        } else {
+          alert('Please enter a message');
+        }
+    }
+    chatSocket.onclose = function(e) {
+        console.log('onclose');
+    }
+
+    //
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+      e.preventDefault();
+
+      const messageInputDom = document.querySelector('#chat-message-input');
+      const message = messageInputDom.value;
+
+      chatSocket.send(JSON.stringify({
+        'username': userName,
+       'message': message,
+       'room': roomName
+      }));
+
+      messageInputDom.value = '';
+      return false;
+    }
+</script>

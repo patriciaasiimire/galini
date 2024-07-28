@@ -1,24 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Therapist, Appointment
-
+from .models import Therapist, Room
 from datetime import datetime
-from email.message import EmailMessage
-import logging
+# from email.message import EmailMessage
+# import logging
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-
+# register
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
 from django import forms
-from .forms import TherapistForm, SignUpForm, AppointmentRequestForm, FeedbackForm, TimeSlotForm
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
+from .forms import SignUpForm, PHQ9Form
+from .models import Message, Room
+# from google.oauth2 import service_account
+# from googleapiclient.discovery import build
 
-def embed_view(request):
-    return render(request, 'embed.html')
 
 def home(request):
     return render(request, 'home.html')
@@ -26,7 +23,7 @@ def home(request):
 def therapists_summary(request):
     therapists = Therapist.objects.all()
     return render(request, 'therapists_summary.html', {'therapists': therapists})
-# authentication
+# authentication----------------------------------------------------------------
 def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -43,152 +40,51 @@ def login_user(request):
     
 def logout_user(request):
     logout(request)
-    messages.success(request, ('You have been logged out, Thanks for stopping by...'))
+    # messages.success(request, ('You have been logged out, Thanks for stopping by...'))
     return redirect('home')
 
 def register_user(request):
-    form = SignUpForm()
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            email = form.cleaned_data.get('email')
-            # login user
-            user = authenticate(username=username, password=password, email=email)
-            login(request, user)
-            # messages.success(request, f"Account created for {username}! You are now able to log in.")
-            return redirect('home')
-        else:
-            # messages.success(request, ('Whoops! There was a problem registering the account, please try again'))
-            return redirect('register')
-    else:
-        return render(request, "register.html", {})
-    
-# appointments
-logger = logging.getLogger(__name__)
-
-@login_required
-def request_appointment(request):
-    if request.method == 'POST':
-        description = request.POST.get('description')
-        appointment = Appointment.objects.create(user=request.user, description=description)
-        # Send email notification to user or other actions
-        return render(request, 'appointment_requested.html', {'appointment': appointment})
-    return render(request, 'request_appointment.html')
-    
-
-
-@login_required
-def define_time_slots(request):
-    if request.method == 'POST':
-        form = TimeSlotForm(request.POST)
-        if form.is_valid():
-            time_slot = form.save(commit=False)
-            time_slot.doctor = request.user  # Assign the current user as the doctor
-            time_slot.save()
-            return redirect('define_time_slots')  # Replace with your URL name for listing time slots
-    else:
-        form = TimeSlotForm()
-    
-    context = {
-        'form': form,
-    }
-    return render(request, 'define_time_slots.html', context)
-
-
-def send_appointment_notification(appointment):
-    subject = 'Appointment Requested'
-    message = f'Your appointment has been requested. Description: {appointment.description}'
-    from_email = 'your_email@example.com'
-    recipient_list = [appointment.user.email]
-    send_mail(subject, message, from_email, recipient_list) # type: ignore
-
-
-def add_to_google_calendar(appointment):
-    SCOPES = ['https://www.googleapis.com/auth/calendar']
-    SERVICE_ACCOUNT_FILE = 'path/to/service-account-file.json'
-
-    credentials = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-
-    service = build('calendar', 'v3', credentials=credentials)
-
-    event = {
-      'summary': f'Appointment with {appointment.user.username}',
-      'description': appointment.description,
-      'start': {
-        'dateTime': appointment.requested_time.strftime('%Y-%m-%dT%H:%M:%S'),
-        'timeZone': 'Your/Timezone',
-      },
-      'end': {
-        'dateTime': (appointment.requested_time + datetime.timedelta(hours=1)).strftime('%Y-%m-%dT%H:%M:%S'),
-        'timeZone': 'Your/Timezone',
-      },
-    }
-
-    event = service.events().insert(calendarId='primary', body=event).execute()
-    print('Event created: %s' % (event.get('htmlLink')))
-
-
-@login_required
-def request_appointment(request):
-    if request.method == 'POST':
-        form = AppointmentRequestForm(request.POST)
-        if form.is_valid():
-            # Save the form data to the database or process it further
-            appointment = form.save(commit=False)
-            appointment.user = request.user  # Assuming appointment has a 'user' field for the requesting user
-            appointment.save()
-            return redirect('appointment_requested')
-    else:
-        form = AppointmentRequestForm()
-
-    return render(request, 'request_appointment.html', {'form': form})
-
-@login_required
-def appointment_requested(request):
-    return render(request, 'appointment_requested.html')
-
-def create_appointment(request):
-    if request.method == 'POST':
-        form = AppointmentRequestForm(request.POST)
-        if form.is_valid():
-            # Save the form data to create a new Appointment object
-            appointment = form.save(commit=False)
-            appointment.user = request.user  # Assuming request.user is authenticated and assigned
-            appointment.save()
-            return redirect('appointment_detail', pk=appointment.pk)  # Redirect to appointment detail page
-    else:
-        form = AppointmentRequestForm()
-    return render(request, 'appointment_form.html', {'form': form})
-
-def submit_feedback(request):
-  if request.method == 'POST':
-    form = FeedbackForm(request.POST)
+    form = SignUpForm(request.POST)
     if form.is_valid():
-      feedback = form.save()  # Save feedback data to database
-      send_feedback_notification(feedback.email)  # Call notification function with email
-      return redirect('appointment_confirmation')  # Redirect to confirmation page
-  else:
-    form = FeedbackForm()
-  return render(request, 'feedback_form.html', {'form': form})
+        username = form.cleaned_data.get('username')
+        email = form.cleaned_data.get('email')
+        password = form.cleaned_data.get('password1')
+        form.save()
+        new_user = authenticate(username=username, email=email, password=password)
+        if new_user is not None:
+            login(request, new_user)  # Ensure `request` is the first argument
+            return redirect('home')  # Redirect to a home page or any other page
+    form = SignUpForm()
 
-def send_feedback_notification(email_address):
-  # Your email server details (replace with your actual details)
-  sender_email = "your_email@example.com"
-  subject = "New Feedback Received"
-  message = f"""
-  A new feedback has been submitted from {email_address}.
+    context = {
+        'form': form
+    }
+    return render(request, 'register.html', context)
 
-  Please check your dashboard for details.
+# PHQ9 FORM ----------------------------------------------------------------
+def phq9_calculator_view(request):
+    if request.method == 'POST':
+        form = PHQ9Form(request.POST)
+        if form.is_valid():
+            score = form.calculate_score()
+            return render(request, 'phq9_result.html', {'score': score})
+    else:
+        form = PHQ9Form()
+    return render(request, 'phq9_calculator.html', {'form': form})
 
-  This is an automated notification from your appointment system.
-  """
+# Chat----------------------------------------------------------------
+def message_page(request):
+    return render(request,'message_page.html')
 
-  try:
-    email = EmailMessage(subject, message, sender_email, [email_address])
-    email.send()
-  except Exception as e:
-    print(f"Error sending email notification: {e}")
+@login_required
+def rooms(request):
+    rooms = Room.objects.all()
+    return render(request, 'rooms.html', {'rooms': rooms})
+
+@login_required
+def room(request, slug):
+    room = Room.objects.get(slug=slug)
+    messages = Message.objects.filter(room=room)[0:25]
+
+
+    return render(request, 'room.html', {'room': room, 'messages':messages})
