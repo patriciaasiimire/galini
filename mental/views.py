@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Therapist, Room
+from .models import Therapist, Room, Message
+from django.http import JsonResponse, HttpResponse
 from datetime import datetime
-# from email.message import EmailMessage
-# import logging
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 # register
@@ -13,8 +12,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .forms import SignUpForm, PHQ9Form
 from .models import Message, Room
-# from google.oauth2 import service_account
-# from googleapiclient.discovery import build
 
 
 def home(request):
@@ -77,14 +74,54 @@ def message_page(request):
     return render(request,'message_page.html')
 
 @login_required
-def rooms(request):
-    rooms = Room.objects.all()
-    return render(request, 'rooms.html', {'rooms': rooms})
+def room(request, room):
+    username = request.GET.get('username')
+    room_details = Room.objects.get(name=room)
+    return render(request, 'room.html', {
+        'room_details': room_details,
+        'username': username,
+        'room': room
+    })
 
 @login_required
-def room(request, slug):
-    room = Room.objects.get(slug=slug)
-    messages = Message.objects.filter(room=room)[0:25]
+def checkview(request):
+    room = request.POST['room_name']
+    username = request.POST['username']
+    
+    if Room.objects.filter(name=room).exists():
+        return redirect('/'+room+'/?username='+username)
+    else:
+        new_room = Room.objects.create(name=room)
+        new_room.save()
+        return redirect('/'+room+'/?username='+username)
 
+@login_required
+def send(request):
+    if request.method == 'POST':
+        room_id = int(request.POST['room_id'])
+        username = request.POST['username']
+        message = request.POST['message']
 
-    return render(request, 'room.html', {'room': room, 'messages':messages})
+        # check if room exists
+        room_exists = Room.objects.filter(id=room_id).exists()
+        if not room_exists:
+            return HttpResponse('Room does not exist.', status=404)
+        
+        # Check if the user exists
+        user_exists = User.objects.filter(username=username).exists()
+        if not user_exists:
+            return HttpResponse('User does not exist.', status=404)
+        
+        # Retrieve the room and user objects
+        room = Room.objects.get(id=room_id)
+        user = User.objects.get(username=username)
+        
+        # Create the new message instance
+        new_message = Message(value=message, user=user, room=room)
+        
+        # Save the message to the database
+        new_message.save()
+        
+        return JsonResponse({'status': 'success', 'message': 'Message sent successfully'})
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)

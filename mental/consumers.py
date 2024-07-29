@@ -36,7 +36,7 @@ class MentalConsumer(AsyncWebsocketConsumer):
                 'type': 'chat_message',
                 'message': message,
                 'username': username,
-                'room': room
+                'room': room,
             }
         )
 
@@ -48,7 +48,7 @@ class MentalConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'message': message,
             'username': username,
-            'room': room
+            'room': room,
         }))
     
     @sync_to_async # store things in the database

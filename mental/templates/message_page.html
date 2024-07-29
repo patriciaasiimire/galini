@@ -1,21 +1,59 @@
-{% load static %}
-{% include 'base.html' %}
+<style>
+  body {
+    background-color: #90D5FF;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
   
+  input[type='text'],
+  select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type='submit'] {
+    width: 100%;
+    background-color: #142193;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type='submit']:hover {
+    background-color: #fec017;
+  }
+  
+  div {
+    border-radius: 5px;
+    background-color: #90d5ff;
+    padding: 20px;
+  }
+  p.title {
+    font-size: 100px;
+    font-weight: bold;
+    color: #142193;
+    line-height: 100px;
+    letter-spacing: -6px;
+  }
+</style>
 
-<div class="d1">
-  <div class="d2">
-    <div class="p-10 lg:p-20 text-center">
-      <a href="{% url 'rooms' %}" class="title">Open ChatRoom</a>
-    <br><br>
-    </div>
-    
-
-    
-  </div>
-
-  <div class="d3">
-    <img src="{% static 'images/v30_6.png' %}" alt="imagemental" />
-  </div>
+<div>
+  <p class="title">Galini - Chat</p>
+  <form id="post-form" method="POST" action="checkview">
+    {% csrf_token %}
+    <label>Room Name</label>
+    <input type="text" name="room_name" id="room_name" width="100px" />
+    <label>Username</label>
+    <input type="text" name="username" id="username" width="100px" />
+    <input type="submit" value="Enter Room" />
+  </form>
+  <a href="{% url 'home' %}">Back to home</a>
 </div>
-
-{% include 'footer.html' %}

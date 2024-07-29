@@ -10,8 +10,10 @@ urlpatterns = [
     path('therapists_summary/', views.therapists_summary, name='therapists_summary'),
 
     path('message_page/', views.message_page, name='message_page'),
-    path('rooms/', views.rooms, name='rooms'),
-    path('<slug:slug>/', views.room, name='room'),
+    path('<str:room>/', views.room, name='room'),
+    path('message_page/checkview', views.checkview, name='checkview'),
+    path('message_page/checkview/send', views.send, name='send'),
+    
 
     path('phq9/calculator/', views.phq9_calculator_view, name='phq9_calculator'),
     

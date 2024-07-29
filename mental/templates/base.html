@@ -8,6 +8,7 @@
     <title>Galini Plus</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="icon" href="{% static 'images/v30_6 copy.png' %}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <style>
         
@@ -89,7 +90,6 @@
     </style>
 </head>
 <body>
-    
     {% include "navbar.html" %}
     {% if messages %}
         {% for message in messages %}
@@ -100,4 +100,5 @@
         {% endfor %}
     {% endif %}
     {% block content %}
+    
     {% endblock content %}

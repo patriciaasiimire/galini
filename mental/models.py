@@ -1,21 +1,23 @@
 from django.db import models
-import datetime
+from datetime import datetime
 from django.contrib.auth.models import User
 
 
 # Chatroom----------------------------------------------------------------
 class Room(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+    # slug = models.SlugField(unique=True)
+
 # store the meesages in a database---------------------------------------------------------------- -
 class Message(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='messages')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages')
-    context = models.TextField()
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    value = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
     
     class Meta:
         ordering = ('date_added',)
+        
 
         
 # therapist summary-------------------------------------------------------------------------------- 
