@@ -5,15 +5,15 @@ from django.contrib.auth.models import User
 
 # Chatroom----------------------------------------------------------------
 class Room(models.Model):
-    name = models.CharField(max_length=100)
-    # slug = models.SlugField(unique=True)
-
-# store the meesages in a database---------------------------------------------------------------- -
+    room_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=1000)
+    
+# store the messages in a database---------------------------------------------------------------- -
 class Message(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     value = models.TextField()
-    date_added = models.DateTimeField(auto_now_add=True)
+    date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     
     class Meta:
         ordering = ('date_added',)

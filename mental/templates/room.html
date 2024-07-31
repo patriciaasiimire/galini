@@ -1,3 +1,13 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galini Plus</title>
+    {% comment %} <link rel="icon" href="{% static 'images/v30_6 copy.png' %}"> {% endcomment %}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 <style>
   input[type=text], select {
   width: 100%;
@@ -21,7 +31,8 @@
   }
 
   input[type=submit]:hover {
-  background-color: #FEC017;
+  background-color: #90D5FF;
+  color: #142193;
   }
 
   div {
@@ -30,7 +41,7 @@
   padding: 20px;
   }
 
-  p.title {
+  h2.title {
     font-size: 100px;
     font-weight: bold;
     color: #142193;
@@ -38,46 +49,71 @@
     letter-spacing: -6px;
   }
 </style>
+</head>
+
+<h2 class="title">{{room}} - Galini Plus</h2>
+
+<div id="display">
+
+</div>
+
+  
+{% comment %} <script>
+  $(document).ready(function(){
+
+    setInterval(function(){
+      $.ajax({
+        url: '/getMessages/{{room}}/',
+        type: 'GET',
+        success: function(response) {
+          $('#display').empty();
+          for (var key in response.messages)
+          {
+            var temp = "<div class='container darker><b>" + response.messages[key].user+"</b><p>"+response.messages[key].value + "</p><span class='time-left'>" + response.messages[key].date + "</span></div>";
+            $('#display').append(temp);
+          }
+        },
+        error: function(response) {
+          alert('An error occurred')
+        }
+      });
+    }, 1000);
+  })
+</script> {% endcomment %}
+
+<body>
+  <center>
+    <form id="post-form" method="post">
+      {% csrf_token %}
+
+      <input type="hidden" class="title" name="username" id="username" value="{{username}}">
+      <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}">
+      <input type="text" placeholder="Please enter your message here..." name="message" id="message" width="100px">
+      <input type="submit" value="Send">
+    </form>
+    <a href="{% url 'home' %}">Back to home</a>
+  </center>
+</body>
 
 
-<h2>{{room}}</h2>
-<center>
-  <form action="" id="post-form">
-    {% csrf_token %}
-    <input type="hidden" class="title" name="username" id="username" value="{{username}}">
-    <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}">
-    <input type="text" placeholder="Please enter your message here..." name="message" id="message" width="100px">
-    <input type="submit" value="Send">
-  </form>
-  <a href="{% url 'home' %}">Back to home</a>
-</center>
-
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script type="text/javascript">
   $(document).on('submit', '#post-form', function(e) {
-    e.preventDefault();
+    e.preventDefault(); //prevent page from reloading when hit submit
 
     $.ajax({
       type: 'POST',
-      url: 'message_page/checkview/send',
+      url: '/send',
       data: {
         username: $('#username').val(),
         room_id: $('#room_id').val(),
         message: $('#message').val(),
         csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
       },
-      success: function(response) {
-        if (response.status === 'success') {
-          alert(response.message);
-        } else {
-          alert('Error: ' + response.message);
-        }
-      },
-      error: function(xhr, status, error) {
-        alert('An error occurred: ' + error);
+      success: function(data) {
+        //alert(data);
       }
     });
-    document.getElementById('message').value = '';
+    document.getElementById('message').value = ''
   });
 </script>
+</html>
