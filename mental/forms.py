@@ -65,4 +65,4 @@ class PHQ9Form(forms.Form):
     def calculate_score(self):
         return sum(self.cleaned_data.values())
 
-# Chat room form
+# Chatroom registration form

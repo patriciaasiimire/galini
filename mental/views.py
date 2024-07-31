@@ -74,7 +74,23 @@ def phq9_calculator_view(request):
 # video chat--------------------------------------------------------------------------------
 @login_required
 def dashboard_chat(request):
-    return render(request, 'dashboard_chat.html')
+    user = request.user
+    name = f"{user.first_name} {user.last_name}" if user.first_name and user.last_name else user.username
+    return render(request, 'dashboard_chat.html', {'name': name})
+
+@login_required
+def videocall(request):
+    user = request.user
+    name = f"{user.first_name} {user.last_name}" if user.first_name and user.last_name else user.username
+    return render(request, 'mental/meeting.html', {'name': name})
+
+@login_required
+def join(request):
+    if request.method == 'POST':
+       roomID = request.POST['roomID']
+       return redirect('/meeting?roomID='+ roomID)
+    return render(request, 'mental/join.html')
+
 
 # old version Chat----------------------------------------------------------------
 # def message_page(request):

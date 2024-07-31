@@ -12,8 +12,9 @@ urlpatterns = [
 
     path('therapists_summary/', views.therapists_summary, name='therapists_summary'),
 
-    path('chat/', views.chat, name='chat'),
-
+    path('dashboard_chat/', views.dashboard_chat, name='dashboard_chat'),
+    path('meeting/', views.videocall, name='meeting'),
+    path('join/', views.join, name='join'),
     
     # path('<str:room>/', views.room, name='room'),
     # path('message_page', views.message_page, name='message_page'),
