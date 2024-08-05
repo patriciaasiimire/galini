@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointment | Galini Plus</title>
+    <link rel="icon" href="{% static 'images/v30_6 copy.png' %}">
+    <link rel="stylesheet" href="{% static 'css/appoint.css' %}" />
+  </head>
+  <body>
+    <br>
+    {% if yourname %}
+      <div class="message-container">
+        <h2>Thanks {{ yourname }}, we've received your email and we'll respond shortly</h2>
+      </div>
+      <br>
+    {% else %}
+      <div class="wrapper">
+        <form action="." method="post">
+          {% csrf_token %}
+          <h1>Make Your Appointment</h1>
+
+          <div class="input-box">{{ form.yourname }}</div>
+
+          <div class="input-box">{{ form.youremail }}</div>
+
+          <div class="input-box">{{ form.yourcontact }}</div>
+
+          <div class="input-box">{{ form.yourday }}</div>
+
+          <div class="input-box">{{ form.yourtime }}</div>
+
+          <div class="input-box">{{ form.yourdoc }}</div>
+
+          <div class="input-box">{{ form.yourmessage }}</div>
+
+          <button type="submit" class="btn">Submit</button>
+        </form>
+        
+      </div>
+    {% endif %}
+    <br>
+    <a href="{% url 'home' %}" class="back-link">Back to home</a>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+{% load i18n %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <title>Galini Plus</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" href="{% static 'images/v30_6 copy.png' %}">
+    <!-- Bootstrap CSS from cdn...very helpful -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+   
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #142193;
+        }
+
+        .navbar-brand {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .navbar-toggler {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .navbar-toggler div {
+            width: 30px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s linear;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links li {
+            margin: 0 10px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-toggler {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: left;
+                background: #142193;
+                
+                border: 2px solid rgba(255, 255, 255, .2);
+                border-radius: 10px;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                padding-left: 20px;
+                margin: 10px;
+            }
+
+            .nav-links ::before {
+                content: '';
+                background-color: red;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .navbar-toggler.open div:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .navbar-toggler.open div:nth-child(2) {
+                opacity: 0;
+            }
+
+            .navbar-toggler.open div:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="google_translate_element"></div>
+    {% include "navbar.html" %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning aler-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% block content %}
+
+    {% endblock content %}
+
+    <script src="script.js"></script>
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        } 
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    

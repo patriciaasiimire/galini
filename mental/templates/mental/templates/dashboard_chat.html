@@ -1,0 +1,35 @@
+{% load i18n %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Video Conference | Galini Plus</title>
+  <link rel="stylesheet" href="{% static 'css/video.css' %}">
+  <link rel="icon" href="{% static 'images/v30_6 copy.png' %}">
+  <body>
+    <div id="google_translate_element"></div>
+    <div class="dashboard">
+        <h1>Welcome, {{name}}!</h1>
+        <!-- create a "New Meeting" button -->
+        <a href="{% url "meeting" %}" class="button">New Meeting</a>
+        <a href="{% url "join" %}" class="button">Join Meeting</a>
+        <a href="{% url "home" %}" class="button">Back to home</a>
+    </div>
+    <script src="script.js"></script>
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        } 
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </body>
+
+</head>
+</html>

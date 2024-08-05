@@ -1,0 +1,60 @@
+{% load i18n %}
+{% load static %}
+{% include 'base.html' %}
+
+<div class="d1">
+  <div class="d2">
+    <p class="title">PHQ-9 Calculator</p>
+  </div>
+  <div id="google_translate_element"></div>
+  <iframe class="embedded-iframe" 
+          id="translated-iframe"
+          src="https://www.mdcalc.com/calc/1725/phq9-patient-health-questionnaire9" 
+          onload="removeNavbar(this)"></iframe>
+
+  <a href="{% url 'home' %}" class="btn">Home</a>
+</div>
+
+{% include 'footer.html' %}
+<style>
+  .embedded-iframe {
+      width: 100%;
+      height: 120vh;
+      border: none;
+  }
+</style>
+<script src="script.js"></script>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {pageLanguage: 'en', includedLanguages: 'fr,es,de,it,ja,zh-CN'},
+      'google_translate_element'
+    );
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+  function removeNavbar(iframe) {
+    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+    iframe.onload = function () {
+      const navbar = iframeDocument.querySelector('nav');
+      if (navbar) {
+        navbar.style.display = 'none';
+      }
+    }
+  }
+
+  document.getElementById('google_translate_element').addEventListener('DOMNodeInserted', function(event) {
+    if (event.target.nodeName === 'SELECT') {
+      event.target.addEventListener('change', function() {
+        const selectedLang = event.target.value;
+        const iframe = document.getElementById('translated-iframe');
+        const src = iframe.getAttribute('src');
+        const translateUrl = `https://translate.google.com/translate?hl=&sl=auto&tl=${selectedLang}&u=${encodeURIComponent(src)}`;
+        window.open(translateUrl, '_blank');
+      });
+    }
+  });
+</script>

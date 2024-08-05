@@ -1,0 +1,55 @@
+{% load i18n %}
+{% load static %}
+
+<nav class="navbar">
+  <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/galini.png' %}" alt="Logo" style="width: 100px; vertical-align: middle;" /></a>
+  <button class="navbar-toggler" id="navbarToggler" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li>
+      <div id="google_translate_element"></div>
+    </li>
+    <li>
+      <a href="{% url 'phq9_calculator' %}">Diagnostic Quizzes</a>
+    </li>
+    <li>
+      <a href="{% url 'therapists_summary' %}">Therapists</a>
+    </li>
+    <li>
+      <a href="{% url 'dashboard_chat' %}">Chat With Therapist</a>
+    </li>
+    <li>
+      <a href="{% url 'appointment' %}">Book Appointment</a>
+    </li>
+    <li>
+      <a href="#">Nearest Hospital</a>
+    </li>
+    {% if user.is_authenticated %}
+      <li>
+        <a href="{% url 'logout' %}">Logout</a>
+      </li>
+    {% else %}
+      <li>
+        <a href="{% url 'login' %}">Login</a>
+      </li>
+      <li>
+        <a href="{% url 'register' %}">Register</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+
+<script src="script.js"></script>
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        } 
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
