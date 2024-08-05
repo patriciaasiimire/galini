@@ -1,6 +1,9 @@
 from pathlib import Path
-import os
+# from decouple import config
 
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -10,10 +13,33 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rjp02#8fqr17a&n)h*4ihz&=xnf+5+*8p+dnf5q++q6_(db4xa'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+from django.core.management.utils import get_random_secret_key
+
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', default=get_random_secret_key())
 DEBUG = True
+from django.utils.translation import gettext_lazy as _
+LANGUAGE_CODE = "en"
+LANGUAGES = [
+    ('en', _('English')),
+    ('lg', _('Luganda')),
+    ('he', _('Hebrew')),
+    ('el', _('Greek')),
+    ('fr', _('Français')),
+    ('es', _('Español')),
+    ('de', _('Deutsch')),
+    ('it', _('Italiano')),
+    ('pt', _('Português')),
+    ('ru', _('Русский')),
+    ('pl', _('Polski')),
+    ('ja', _('日本語')),
+    ('ko', _('한국어')),
+    ('vi', _('Tiếng Việt')),
+]
+
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+
 
 ALLOWED_HOSTS = []
 
@@ -29,13 +55,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'mental',
-    # 'django_distill',
+    'rosetta',
     
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', # enables language selection based on the data received from requests.
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -112,6 +139,8 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
 
 
@@ -121,10 +150,33 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = ['static/']
 
+
 MEDIA_URL = 'MEDIA/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Security settings
 
+# send email notification
+# https://myaccount.google.com/lesssecureapps
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True
+
+# send sms notification
+TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER')
+SMS_BROADCAST_TO_NUMBERS = os.getenv('SMS_BROADCAST_TO_NUMBERS', '').split(',')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# settings.py
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_NAME = 'sessionid'
+
